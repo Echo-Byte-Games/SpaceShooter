@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6707859533909437040}
   - component: {fileID: 1238800430924280099}
-  - component: {fileID: 6192694917526736851}
+  - component: {fileID: -8131366352957637400}
   m_Layer: 0
   m_Name: Star004
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8328968364369370758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.005576, y: -1.0847166, z: 0}
+  m_LocalPosition: {x: 3.005576, y: -1.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &6192694917526736851
+--- !u!114 &-8131366352957637400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8328968364369370758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76cb41a611637974e8d8664d0c8bcfbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 29792aad53f2c864285fd3f07263359a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::moveLeft
-  speed: 1
+  m_EditorClassIdentifier: Assembly-CSharp::BacgroundObject
+  speed: 5

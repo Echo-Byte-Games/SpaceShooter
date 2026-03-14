@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8418172386828020243}
   - component: {fileID: 5047938235264966717}
-  - component: {fileID: 2301487928454632588}
+  - component: {fileID: 4506907092735375014}
   m_Layer: 0
   m_Name: Star003
   m_TagString: Untagged
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2301487928454632588
+--- !u!114 &4506907092735375014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4236016743985057567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76cb41a611637974e8d8664d0c8bcfbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 29792aad53f2c864285fd3f07263359a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::moveLeft
-  speed: 1
+  m_EditorClassIdentifier: Assembly-CSharp::BacgroundObject
+  speed: 5
