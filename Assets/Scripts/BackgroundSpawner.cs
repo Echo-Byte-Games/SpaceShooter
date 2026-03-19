@@ -35,7 +35,7 @@ public class BackgroundSpawner : MonoBehaviour
             obj.transform.position = transform.position + new Vector3(0, yPosition, 0);
             BacgroundObject bacgroundObject = obj.GetComponent<BacgroundObject>();
 
-            bacgroundObject.speed = Mathf.Abs(yPosition) * objectMoveSpeedEasingFactor + Random.Range(objectMoveSpeedFactor, objectMoveSpeedFactor + objectMoveSpeedRandomFactor); 
+            bacgroundObject.Speed = Mathf.Abs(yPosition) * objectMoveSpeedEasingFactor + Random.Range(objectMoveSpeedFactor, objectMoveSpeedFactor + objectMoveSpeedRandomFactor); 
             obj.SetActive(true);
         }
     }

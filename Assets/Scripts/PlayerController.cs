@@ -1,51 +1,57 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SpacePlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    public InputActionAsset inputActions;
+
+    private InputAction moveAction;
+    private InputAction fireAction;
+
+    public Vector2 moveVector;
+
+    private Animator animator;
+    //private Rigidbody2D rigidbody2D;
+
     [Header("Movement")]
-    public float moveSpeed = 10f;
-    public Vector2 boundsX = new Vector2(-10f, 10f);
-    public Vector2 boundsY = new Vector2(-5f, 5f); // For 2D/top-down
-    public Vector2 boundsZ = new Vector2(-10f, 10f); // For 3D forward/back
-
-    //private PlayerInputActions input;
-    private Vector2 moveInput;
-
-    private void Awake()
-    {
-        //input = new PlayerInputActions();
-    }
-
+    public float moveSpeed = 3f;
     private void OnEnable()
     {
-        //input.Player.Enable();
-        //input.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        //input.Player.Move.canceled += _ => moveInput = Vector2.zero;
+        inputActions.FindActionMap("Player").Enable();
     }
 
     private void OnDisable()
     {
-        //input.Player.Disable();
+        inputActions.FindActionMap("Player").Disable();
+    }
+    private void Awake()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+        fireAction = InputSystem.actions.FindAction("Attack");
+
+        animator =  GetComponent<Animator>();
     }
 
     private void Update()
     {
         Move();
+        Attack();
     }
 
     private void Move()
     {
-        // Top-down 2D: X/Y movement
-        Vector3 move = new Vector3(moveInput.x, moveInput.y, 0f) * moveSpeed * Time.deltaTime;
+        moveVector = moveAction.ReadValue<Vector2>();
+        Vector3 move = moveVector * moveSpeed * Time.deltaTime;
 
         transform.position += move;
+    }
 
-        // Clamp position inside bounds
-        transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, boundsX.x, boundsX.y),
-            Mathf.Clamp(transform.position.y, boundsY.x, boundsY.y),
-            transform.position.z
-        );
+    private void Attack()
+    {
+        if (fireAction.WasPressedThisFrame())
+        {
+            
+            animator.SetTrigger("isSlashing");
+        }
     }
 }

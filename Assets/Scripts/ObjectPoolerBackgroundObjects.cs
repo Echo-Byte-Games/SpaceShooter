@@ -84,8 +84,16 @@ public class ObjectPoolerBackgroundObjects : MonoBehaviour
     }
     public GameObject GetPooledObject()
     {
-        foreach (GameObject obj in pool)
+        for (int i = pool.Count - 1; i >= 0; i--)
         {
+            GameObject obj = pool[i];
+
+            if (obj == null)
+            {
+                pool.RemoveAt(i);
+                continue;
+            }
+
             if (!obj.activeSelf)
             {
                 return obj;

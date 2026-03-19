@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class BacgroundObject : MonoBehaviour
 {
-    public float speed = 5f; // movement speed
+    [SerializeField] private float speed = 5f;
     public float Speed
     {
         get { return speed; }
         set { speed = value; }
     }
+    [SerializeField, Range(0f, 1f)] private float memoryRemovechance = 0.05f;
 
     void Start()
     {
@@ -19,8 +20,13 @@ public class BacgroundObject : MonoBehaviour
         // Move object to the left
         transform.Translate(Vector2.left * speed * Time.deltaTime);
 
-        if (transform.position.x < -6) // -6 is begining or the screen x cordinate
+        if (transform.position.x < -6) // -6 is just outside or the left side of the screen
         {
+            if (memoryRemovechance >= Random.Range(0f, 1f))
+            {
+                Destroy(gameObject);
+                return;
+            }
             gameObject.SetActive(false);
         }
 
