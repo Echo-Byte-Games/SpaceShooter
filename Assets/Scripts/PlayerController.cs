@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private AnimatorStateInfo animatorStateInfo;
     //private Rigidbody2D rigidbody2D;
 
+    [SerializeField] private GameObject SwordHitboxMiddle;
     bool isAttacking;
 
     [Header("Movement")]
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         fireAction = InputSystem.actions.FindAction("Attack");
 
-        animator =  GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -67,9 +69,30 @@ public class PlayerController : MonoBehaviour
                 animator.Play("Slash1");
             }
         }
+        AttackSlash1Animations();
+    }
+    private void AttackSlash1Animations()
+    {
+        if (animatorStateInfo.IsName("Slash1") && animatorStateInfo.normalizedTime >= 0.1f && animatorStateInfo.normalizedTime <= 0.9f)
+        {
+            SwordHitboxMiddle.SetActive(true);
+            //return;
+        }
+        if (animatorStateInfo.IsName("Slash1") && animatorStateInfo.normalizedTime >= 0.9f)
+        {
+            SwordHitboxMiddle.SetActive(false);
+        }
         if ((animatorStateInfo.IsName("Slash1") || animatorStateInfo.IsName("Slash2") || animatorStateInfo.IsName("Slash3")) && animatorStateInfo.normalizedTime >= 1f)
         {
             animator.Play("Idle");
         }
+    }
+    IEnumerator WaitFunction(float waitTime)
+    {
+        //Debug.Log("Before wait");
+
+        yield return new WaitForSeconds(waitTime);
+
+        //Debug.Log("After " + waitTime + " seconds");
     }
 }
