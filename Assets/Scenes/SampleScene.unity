@@ -323,6 +323,8 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   moveVector: {x: 0, y: 0}
   SwordHitboxMiddle: {fileID: 1565518563}
+  moveAction: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   moveSpeed: 3
 --- !u!4 &453975063 stripped
 Transform:
@@ -760,6 +762,8 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   moveVector: {x: 0, y: 0}
   SwordHitboxMiddle: {fileID: 1350066229}
+  moveAction: {fileID: 0}
+  attackAction: {fileID: 0}
   moveSpeed: 3
 --- !u!50 &743727064
 Rigidbody2D:

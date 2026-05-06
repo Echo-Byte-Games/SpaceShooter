@@ -4,10 +4,9 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public InputActionAsset inputActions;
+    #region Declarations
 
-    private InputAction moveAction;
-    private InputAction fireAction;
+    
 
     public Vector2 moveVector;
 
@@ -15,46 +14,103 @@ public class PlayerController : MonoBehaviour
     private AnimatorStateInfo animatorStateInfo;
     //private Rigidbody2D rigidbody2D;
 
+    //private bool isMoving;
+    private bool isAttacking;
+    private float attackHoldTime;
+    private bool attackTriggered;
+
+    [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private GameObject SwordHitboxMiddle;
-    bool isAttacking;
+    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference attackAction;
 
     [Header("Movement")]
     public float moveSpeed = 3f;
+
+    #endregion
+
     private void OnEnable()
     {
-        inputActions.FindActionMap("Player").Enable();
+        //inputActions.FindActionMap("Player").Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.FindActionMap("Player").Disable();
+        //inputActions.FindActionMap("Player").Disable();
     }
     private void Awake()
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        fireAction = InputSystem.actions.FindAction("Attack");
+        moveAction.action.performed += OnMovePerformed;
+        moveAction.action.canceled += OnMoveCanceled;
+
+        attackAction.action.performed += OnAttackPerformed;
+        attackAction.action.canceled += OnAttackCanceled;
 
         animator = GetComponent<Animator>();
     }
 
+    private void OnDestroy()
+    {
+        moveAction.action.performed -= OnMovePerformed;
+        moveAction.action.canceled -= OnMoveCanceled;
+
+        attackAction.action.performed -= OnAttackPerformed;
+        attackAction.action.canceled -= OnAttackCanceled;
+    }
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+
+    }
+
+    private void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+        isAttacking = true;
+        attackHoldTime = 0f;
+        attackTriggered = false;
+    }
+
+    private void OnAttackCanceled(InputAction.CallbackContext context)
+    {
+        isAttacking = false;
+        attackHoldTime = 0f;
+    }
+
+
     private void Update()
     {
-        Move();
+        MovementHandeler();
         Attack();
         animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
     }
 
-    private void Move()
+    private void MovementHandeler()
     {
-        moveVector = moveAction.ReadValue<Vector2>();
-        Vector3 move = moveVector * moveSpeed * Time.deltaTime;
+            moveVector = moveAction.action.ReadValue<Vector2>();
+            Vector3 move = moveVector * moveSpeed * Time.deltaTime;
 
-        transform.position += move;
+            transform.position += move;
     }
 
     private void Attack()
     {
-        if (fireAction.WasPressedThisFrame())
+
+        if (isAttacking)
+        {
+            attackHoldTime += Time.deltaTime;
+
+            if (!attackTriggered && attackHoldTime >= 0.3f)
+            {
+                attackTriggered = true;
+                //OnAttackHeld();
+            }
+        }
+
+        if (attackAction.action.WasPressedThisFrame())
         {
             if (moveVector.y > 0)
             {
